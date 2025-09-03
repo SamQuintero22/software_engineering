@@ -1,17 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TestGame{
-
-    private static Game game;
-
-    @BeforeEach
-    void setUp() {
-        game = new Game();
-    }
-
 
 // Helper method para tirar varias veces el mismo número de pinos
     private void rollMany(int n, int pins) {
