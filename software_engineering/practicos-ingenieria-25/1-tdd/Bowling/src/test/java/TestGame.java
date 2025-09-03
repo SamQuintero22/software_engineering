@@ -1,7 +1,15 @@
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TestGame{
+
+    @BeforeEach
+    void setUp() {
+        Game game = new Game();
+    }
+
 
 // Helper method para tirar varias veces el mismo número de pinos
     private void rollMany(int n, int pins) {
@@ -47,6 +55,19 @@ public class TestGame{
         Game.jugarTurno(1, 3, 4);
 
         assertEquals(Game.turnos[0].scoreTurno, 17);
+
+    }
+
+    @Test
+    public void testGame(){
+
+        Game.jugarTurno(0, 4, 6); //spare. 
+        Game.jugarTurno(1, 3, 5);  
+        Game.jugarTurno(2, 10, 0); //strike. 
+        Game.jugarTurno(3, 7, 1); 
+
+        assertEquals(Game.Score(), 47);
+
 
     }
 }
