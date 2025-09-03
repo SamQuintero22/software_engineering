@@ -19,44 +19,38 @@ public class Game{
 
         turnos[turno].primerTiro = primero;
         turnos[turno].segundoTiro = segundo;
-
-
-        Roll(primero);
         
+        turnos[turno].strike = isStrike(primero);
+        turnos[turno].spare = isSpare(primero, segundo);
+        
+        Roll(primero);
+        Roll(segundo);
+
         if (turno > 0){
-
+            //calculando bonus de turnos anteriores 
             if (turnos[turno-1].strike) {
-            
-                 turnos[turno-1].scoreTurno += primero;
 
-                 if(primero < 10){
+                turnos[turno-1].scoreTurno += primero;//si el anterior era strike le sumo el primero 
 
-                    turnos[turno-1].scoreTurno += segundo;
+                if (turno>= 2 && turnos[turno-2].strike) {//si el anterior a ese era strike le sumo el primero 
+                    turnos[turno-2].scoreTurno += primero;
+                }
 
-                 }
+                if (!turnos[turno].strike) {//si el actual no es strike le sumo al anterior tambien el segundo 
+                turnos[turno-1].scoreTurno += segundo;
+                }
 
-            }else{
-                
-                if (turnos[turno-1].spare) {
-                 turnos[turno-1].scoreTurno += primero;
             }
+        
+            
+        if(turnos[turno-1].spare){
+
+            turnos[turno-1].scoreTurno += primero;
 
         }
             
-        }
-
-        if (primero < 10) {
-
-            turnos[turno].segundoTiro = segundo;
-            Roll(segundo);
-
-            if(primero + segundo == 10){turnos[turno].spare = true;}
-
-        }else if (primero == 10){ 
-            
-            turnos[turno].strike = true;
-            turnos[turno].segundoTiro = 0; // para mantener coherencia
-        }
+    
+    }
 
         int nuevoPuntaje = 0;
         for(int i = 0; i<=turno; i++){//realculando puntaje total 
@@ -71,12 +65,26 @@ public class Game{
     public static void Roll(int pinos){
 
         turnos[turnoActual].scoreTurno += pinos;
-        totalScore += pinos;        
+        totalScore += pinos;
     }
 
     public static int Score(){
 
         return totalScore;
+
+    }
+
+    public static boolean isStrike(int primero){
+
+        return(primero == 10);
+
+    }
+
+    public static boolean isSpare(int primero, int segundo){
+
+        if(isStrike(primero)) return false;
+
+        return(primero + segundo == 10);
 
     }
     

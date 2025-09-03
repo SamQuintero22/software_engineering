@@ -68,6 +68,18 @@ public class TestGame{
 
         assertEquals(Game.Score(), 47);
 
+    }
+
+    @Test
+    public void testGame1(){
+
+        Game.jugarTurno(0, 4, 6); //spare. 
+        Game.jugarTurno(1, 10, 0);  
+        Game.jugarTurno(2, 10, 0); //strike. 
+        Game.jugarTurno(3, 7, 1); 
+
+        assertEquals(Game.Score(), 73);
+
 
     }
 }
